@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { DatePipe } from '@angular/common';
 import {MatDialogModule} from '@angular/material/dialog'; 
 import {MatButtonModule} from '@angular/material/button';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,9 +20,10 @@ import {MatButtonModule} from '@angular/material/button';
     AppRoutingModule,
     FormsModule,
     MatDialogModule, 
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

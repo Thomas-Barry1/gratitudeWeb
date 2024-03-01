@@ -1,13 +1,14 @@
 import { DatePipe } from '@angular/common';
 import {Component, Inject} from '@angular/core';
-import { ToastService } from './toast.service';
+import {DialogDataComponent} from './dialog-data/dialog-data.component';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
   MatDialogTitle,
   MatDialogContent,
 } from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
+import { ApiService } from './api.service';
+import { Affirmation } from './affirmation';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +22,22 @@ export class AppComponent {
   goodThing3: string = '';
   successMessage: string = '';
   journalEntries: string[] = [];
+  
+  posts: Affirmation | { affirmation: any; }[] = [];
 
-  constructor(private datePipe: DatePipe, private toastService: ToastService){
-    
+  constructor(private datePipe: DatePipe, private dialog: MatDialog, private apiService: ApiService){
+
+    this.apiService.getList().subscribe({
+      next: (data) => {
+          this.posts = data;
+      },
+      error: (error) => {
+          console.log(error)
+      },
+      complete: () => {
+          console.log('complete')
+      }
+    })      
   }
 
   submitGratitude() {
@@ -31,7 +45,15 @@ export class AppComponent {
     if (this.goodThing1 && this.goodThing2 && this.goodThing3) {
       const logEntry = `${this.goodThing1}, ${this.goodThing2}, ${this.goodThing3}, ${currentDateAndTime}`;
       this.journalEntries.push(logEntry);
-      this.toastService.showToast('Great job! Keep spreading positivity!', "success");
+
+      console.log(this.posts);
+
+      const affirmation = this.posts;
+      this.dialog.open(DialogDataComponent, {
+        data: {
+          animal: affirmation,
+        },
+      });
     }
   }
 
