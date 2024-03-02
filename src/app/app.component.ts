@@ -23,7 +23,7 @@ export class AppComponent {
   successMessage: string = '';
   journalEntries: string[] = [];
   
-  posts: Affirmation | { affirmation: any; }[] = [];
+  posts!: Affirmation;
 
   constructor(private datePipe: DatePipe, private dialog: MatDialog, private apiService: ApiService){
 
@@ -37,18 +37,33 @@ export class AppComponent {
       complete: () => {
           console.log('complete')
       }
-    })      
+    });
   }
 
-  submitGratitude() {
+  getAffirmation(){
+    this.apiService.getList().subscribe({
+      next: (data) => {
+          this.posts = data;
+      },
+      error: (error) => {
+          console.log(error)
+      },
+      complete: () => {
+          console.log('complete')
+      }
+    });
+  }
+
+  async submitGratitude() {
     const currentDateAndTime = this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
     if (this.goodThing1 && this.goodThing2 && this.goodThing3) {
       const logEntry = `${this.goodThing1}, ${this.goodThing2}, ${this.goodThing3}, ${currentDateAndTime}`;
       this.journalEntries.push(logEntry);
 
-      console.log(this.posts);
+      await this.getAffirmation();
+      console.log(this.posts["affirmation"]);
 
-      const affirmation = this.posts;
+      const affirmation = this.posts["affirmation"];
       this.dialog.open(DialogDataComponent, {
         data: {
           animal: affirmation,

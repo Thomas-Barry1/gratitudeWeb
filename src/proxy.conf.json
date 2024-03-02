@@ -2,6 +2,9 @@
     "/api": {
       "target": "https://www.affirmations.dev/",
       "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      },
       "changeOrigin": true
     }
   }

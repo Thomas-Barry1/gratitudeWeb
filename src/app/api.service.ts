@@ -8,7 +8,8 @@ import { Affirmation } from './affirmation';
 })
 export class ApiService {
 
-  apiUrl = 'https://www.affirmations.dev/';
+  // apiUrl = 'https://www.affirmations.dev/';
+  apiUrl = '/api';
 
   constructor(private http: HttpClient) { }
 

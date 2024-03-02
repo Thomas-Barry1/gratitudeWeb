@@ -2,27 +2,31 @@
 <!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
 
 <div class="container">
-  <h1>Gratitude Journal</h1>
-  <div class="form-group">
-    <label for="goodThing1">Good Thing 1:</label>
-    <input type="text" id="goodThing1" [(ngModel)]="goodThing1" required />
+  <img class="left-image" src="left-image.jpg" alt="Left Image" />
+  <div class="main-content">
+    <h1>Gratitude Journal</h1>
+    <div class="form-group">
+      <label for="goodThing1">Good Thing 1:</label>
+      <input type="text" id="goodThing1" [(ngModel)]="goodThing1" required />
+    </div>
+    <div class="form-group">
+      <label for="goodThing2">Good Thing 2:</label>
+      <input type="text" id="goodThing2" [(ngModel)]="goodThing2" required />
+    </div>
+    <div class="form-group">
+      <label for="goodThing3">Good Thing 3:</label>
+      <input type="text" id="goodThing3" [(ngModel)]="goodThing3" required />
+    </div>
+    <button class="btn-submit" (click)="submitGratitude()">Submit</button>
+    <p id="message">{{ successMessage }}</p>
+    <div id="log" *ngIf="journalEntries.length > 0">
+      <h2>Your Gratitude Journal</h2>
+      <ol>
+        <li *ngFor="let entry of journalEntries; let i = index">
+          <p>{{ entry }} <button (click)="removeEntry(i)">Remove</button></p>
+        </li>
+      </ol>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="goodThing2">Good Thing 2:</label>
-    <input type="text" id="goodThing2" [(ngModel)]="goodThing2" required />
-  </div>
-  <div class="form-group">
-    <label for="goodThing3">Good Thing 3:</label>
-    <input type="text" id="goodThing3" [(ngModel)]="goodThing3" required />
-  </div>
-  <button class="btn-submit" (click)="submitGratitude()">Submit</button>
-  <p id="message">{{ successMessage }}</p>
-  <div id="log" *ngIf="journalEntries.length > 0">
-    <h2>Your Gratitude Journal</h2>
-    <ol>
-      <li *ngFor="let entry of journalEntries; let i = index">
-        <p>{{ entry }} <button (click)="removeEntry(i)">Remove</button></p>
-      </li>
-    </ol>
-  </div>
+  <img class="right-image" src="right-image.jpg" alt="Right Image" />
 </div>
