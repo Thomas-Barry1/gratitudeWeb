@@ -8,7 +8,6 @@ import {
   MatDialogContent,
 } from '@angular/material/dialog';
 import { ApiService } from './api.service';
-import { Affirmation } from './affirmation';
 
 @Component({
   selector: 'app-root',
@@ -22,36 +21,36 @@ export class AppComponent {
   goodThing3: string = '';
   successMessage: string = '';
   journalEntries: string[] = [];
-  
-  posts!: Affirmation;
 
   constructor(private datePipe: DatePipe, private dialog: MatDialog, private apiService: ApiService){
 
-    this.apiService.getList().subscribe({
-      next: (data) => {
-          this.posts = data;
-      },
-      error: (error) => {
-          console.log(error)
-      },
-      complete: () => {
-          console.log('complete')
-      }
-    });
+    this.apiService.randomizeOrder();
+    // this.apiService.getList().subscribe({
+    //   next: (data) => {
+    //       this.posts = data;
+    //   },
+    //   error: (error) => {
+    //       console.log(error)
+    //   },
+    //   complete: () => {
+    //       console.log('complete')
+    //   }
+    // });
   }
 
   getAffirmation(){
-    this.apiService.getList().subscribe({
-      next: (data) => {
-          this.posts = data;
-      },
-      error: (error) => {
-          console.log(error)
-      },
-      complete: () => {
-          console.log('complete')
-      }
-    });
+    // this.apiService.getList().subscribe({
+    //   next: (data) => {
+    //       this.posts = data;
+    //   },
+    //   error: (error) => {
+    //       console.log(error)
+    //   },
+    //   complete: () => {
+    //       console.log('complete')
+    //   }
+    // });
+    return this.apiService.getList();
   }
 
   async submitGratitude() {
@@ -60,10 +59,7 @@ export class AppComponent {
       const logEntry = `${this.goodThing1}, ${this.goodThing2}, ${this.goodThing3}, ${currentDateAndTime}`;
       this.journalEntries.push(logEntry);
 
-      await this.getAffirmation();
-      console.log(this.posts["affirmation"]);
-
-      const affirmation = this.posts["affirmation"];
+      const affirmation = this.getAffirmation();
       this.dialog.open(DialogDataComponent, {
         data: {
           animal: affirmation,
