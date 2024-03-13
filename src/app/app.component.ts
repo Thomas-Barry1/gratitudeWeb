@@ -8,6 +8,7 @@ import {
   MatDialogContent,
 } from '@angular/material/dialog';
 import { ApiService } from './api.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent {
   successMessage: string = '';
   journalEntries: string[] = [];
 
-  constructor(private datePipe: DatePipe, private dialog: MatDialog, private apiService: ApiService){
+  constructor(private datePipe: DatePipe, private dialog: MatDialog, private apiService: ApiService, private localStorageService: LocalStorageService){
 
     this.apiService.randomizeOrder();
     // this.apiService.getList().subscribe({
@@ -70,6 +71,16 @@ export class AppComponent {
 
   removeEntry(index: number) {
     this.journalEntries.splice(index, 1);
+  }
+
+  saveToLocalStorage(){
+    this.journalEntries.forEach(element => {
+      this.localStorageService.saveGratitudes(this.journalEntries);
+    });
+  }
+
+  retrieveFromLocalStorage(){
+    this.journalEntries = this.localStorageService.loadGratitudes();
   }
 
 }

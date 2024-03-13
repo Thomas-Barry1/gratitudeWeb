@@ -17,11 +17,11 @@
     margin-top: 20vh;
     align-self: flex-start;
     height: auto;
-    width: 100%;
+    width: 120%;
 }
 
 .left-image, .right-image{
-    flex: 1 1 auto; /*Prevent images from growing or shrinking*/
+    flex: 1 1 auto; /* Prevent images from growing or shrinking */
     width: 100%;
   }
 
@@ -30,7 +30,7 @@
 }
 
 .form-group label {
-  display: block;
+  /* display: block; */
   margin-bottom: 5px;
 }
 
@@ -47,6 +47,7 @@
   color: #fff;
   border: none;
   padding: 10px 20px;
+  margin-right: 5px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;

@@ -22,6 +22,12 @@
       <input type="text" id="goodThing3" [(ngModel)]="goodThing3" required />
     </div>
     <button class="btn-submit" (click)="submitGratitude()">Submit</button>
+    <button class="btn-submit" (click)="saveToLocalStorage()">
+      Save to Local Storage
+    </button>
+    <button class="btn-submit" (click)="retrieveFromLocalStorage()">
+      Retrieve from Storage
+    </button>
     <p id="message">{{ successMessage }}</p>
     <div id="log" *ngIf="journalEntries.length > 0">
       <h2>Your Gratitude Journal</h2>
